@@ -1,5 +1,15 @@
-def add_numbers(a, b):
-    return a + b
+from fastapi import FastAPI
+import uvicorn
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the CI/CD Pipeline API!"}
+
+@app.get("/add/{a}/{b}")
+def add(a: int, b: int):
+    return {"result": a + b}
 
 if __name__ == "__main__":
-    print(f"Result: {add_numbers(5, 5)}")
+    uvicorn.run(app, host="0.0.0.0", port=8000)
